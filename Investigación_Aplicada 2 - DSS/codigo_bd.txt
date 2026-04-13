@@ -1,0 +1,22 @@
+CREATE DATABASE IF NOT EXISTS sistema_notas;
+USE sistema_notas;
+
+-- Tabla de docentes
+CREATE TABLE docentes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de estudiantes
+CREATE TABLE estudiantes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    asignatura VARCHAR(100) NOT NULL,
+    nota DECIMAL(4,2) NOT NULL CHECK (nota >= 0 AND nota <= 10),
+    docente_id INT,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (docente_id) REFERENCES docentes(id)
+);
